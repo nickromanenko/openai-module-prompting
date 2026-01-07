@@ -16,14 +16,14 @@ app.post("/summarize", async (req, res) => {
                 .json({ error: "text must be a string (min 10 chars)" });
         }
 
-        const response = await client.responses.create({
-            model: "gpt-5",
+        const response = await client.responses.parse({
+            model: "gpt-4.1",
             temperature: 0.2,
             max_output_tokens: 300,
             input: [],
         });
 
-        return res.json({ summary: response.output_text });
+        return res.json({ summary: response.output_parsed });
     } catch (err: any) {
         // minimal error handling for lesson purposes
         res.status(500).json({
